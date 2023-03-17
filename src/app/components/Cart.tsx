@@ -1,5 +1,19 @@
+import { useAppSelector } from "../hooks";
+import { Product } from "./Product";
+
 const Cart = () => {
-  return <div>Cart will be here</div>;
+  const cartItems = useAppSelector((state) => state.products.cart);
+
+  console.log("cartItems: ", cartItems);
+
+  return (
+    <div>
+      Cart will be here
+      {cartItems.map((item) => {
+        return <Product key={item.id} {...item} />;
+      })}
+    </div>
+  );
 };
 
 export { Cart };

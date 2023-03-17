@@ -1,6 +1,8 @@
 import { useEffect } from "react";
-import { fetchProducts } from "../../features/productSlice";
+import { Button, Container } from "react-bootstrap";
+import { addToCart, fetchProducts } from "../../features/productSlice";
 import { useAppDispatch, useAppSelector } from "../hooks";
+import { Product } from "./Product";
 
 const List = () => {
   const products = useAppSelector((state) => state.products.products);
@@ -12,7 +14,21 @@ const List = () => {
 
   console.log("Products: ", products);
 
-  return <div>List will be here</div>;
+  return (
+    <div>
+      <h2>List will be here</h2>
+      {products.map((product) => {
+        return (
+          <Container key={product.id}>
+            <Product {...product} />
+            <Button onClick={() => dispatch(addToCart(product))}>
+              Add to Cart
+            </Button>
+          </Container>
+        );
+      })}
+    </div>
+  );
 };
 
 export { List };
